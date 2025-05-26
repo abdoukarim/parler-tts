@@ -449,7 +449,8 @@ def main():
             output = {}
             output["len_audio"] = len_audio
             # (1, bsz, codebooks, seq_len) -> (bsz, seq_len, codebooks)
-            output["labels"] = labels.squeeze(0).transpose(1, 2)
+            # output["labels"] = labels.squeeze(0).transpose(1, 2)
+            output["labels"] = labels.transpose(1, 2)
 
             # if `pad_to_max_length`, the maximum corresponding audio length of the current batch is max_duration*sampling_rate
             max_length = len_audio.max() if padding != "max_length" else max_target_length
