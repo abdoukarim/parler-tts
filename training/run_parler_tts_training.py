@@ -443,7 +443,9 @@ def main():
                 batch["n_quantizers"] = num_codebooks
 
             with torch.no_grad():
-                labels = audio_decoder.encode(**batch)["audio_codes"]
+                # labels = audio_decoder.encode(**batch)["audio_codes"]
+                # fix padding bug
+                labels = audio_decoder.encode(input_values=batch["input_values"])["audio_codes"]
             output = {}
             output["len_audio"] = len_audio
             # (1, bsz, codebooks, seq_len) -> (bsz, seq_len, codebooks)
